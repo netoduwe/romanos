@@ -20,7 +20,7 @@ const pages = {
   squad:    { render: renderSquad    },
 };
 
-let appData = loadData();
+let appData = null;
 
 export function getData() { return appData; }
 export function setData(d) { appData = d; saveData(d); }
@@ -67,7 +67,7 @@ function renderStaffFooter() {
   `;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   const overlay = document.createElement('div');
   overlay.className = 'overlay';
   document.body.appendChild(overlay);
@@ -91,6 +91,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   window.addEventListener('hashchange', () => navigate(getHash()));
+
+  appData = await loadData();
 
   renderStaffFooter();
   navigate(getHash());

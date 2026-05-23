@@ -2,8 +2,9 @@
 // Liga: Série Prata 2026 — Liga BC
 // Fonte da verdade: localStorage + dados iniciais
 
-const STORAGE_KEY = 'romanos_data_v3';
-
+const supabaseUrl = 'https://mdttowcgbicevqlcnhit.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1kdHRvd2NnYmljZXZxbGNuaGl0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk1NTI4MzksImV4cCI6MjA5NTEyODgzOX0.FOsUdHvbEMyXpfylziM8koxnTzj23FcKunVVz_fZ-nc';
+const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 const INITIAL_DATA = {
   // ===== COMISSÃO TÉCNICA =====
   staff: [
@@ -205,20 +206,50 @@ const INITIAL_DATA = {
 };
 
 // --- LOAD / SAVE ---
-export function loadData() {
+export async function loadData() {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : JSON.parse(JSON.stringify(INITIAL_DATA));
-  } catch { return JSON.parse(JSON.stringify(INITIAL_DATA)); }
+    const { data, error } = await supabase
+      .from('romanos_data')
+      .select('data')
+      .eq('id', 1)
+      .single();
+
+    if (error || !data) {
+      console.log('No data found in Supabase, inserting INITIAL_DATA...', error);
+      const initialCopy = JSON.parse(JSON.stringify(INITIAL_DATA));
+      await supabase.from('romanos_data').insert([{ id: 1, data: initialCopy }]);
+      return initialCopy;
+    }
+    return data.data;
+  } catch (e) {
+    console.error('Error loading data from Supabase, falling back to initial data', e);
+    return JSON.parse(JSON.stringify(INITIAL_DATA));
+  }
 }
 
-export function saveData(data) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+export async function saveData(data) {
+  try {
+    await supabase
+      .from('romanos_data')
+      .update({ data: data, updated_at: new Date() })
+      .eq('id', 1);
+  } catch (e) {
+    console.error('Error saving to Supabase', e);
+  }
 }
 
-export function resetData() {
-  localStorage.removeItem(STORAGE_KEY);
-  return JSON.parse(JSON.stringify(INITIAL_DATA));
+export async function resetData() {
+  try {
+    const initialCopy = JSON.parse(JSON.stringify(INITIAL_DATA));
+    await supabase
+      .from('romanos_data')
+      .update({ data: initialCopy, updated_at: new Date() })
+      .eq('id', 1);
+    return initialCopy;
+  } catch (e) {
+    console.error('Error resetting Supabase data', e);
+    return JSON.parse(JSON.stringify(INITIAL_DATA));
+  }
 }
 
 // --- HELPERS ---
