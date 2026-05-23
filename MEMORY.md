@@ -77,3 +77,5 @@
 - [x] Fase 15: Desenho livre de setas (passe/corrida) em qualquer ponto do campo, botão de reset de posições e templates de FUT7 atualizados (incluindo 2-2-2).
 - [x] Fase 16: Interação inteligente híbrida. Arrastar peças sempre move a peça sem gerar rabiscos acidentais no fundo.
 - [x] Fase 17: Cores de setas individualizadas (amarelo para passe, vermelho para corrida, branco para rabiscar). Correção do bug de arrasto de jogadores no modo desenho e ajuste no reset de posições padrão.
+- [x] Fase 18: Inicialização do Git e publicação do projeto no repositório remoto do GitHub.
+
