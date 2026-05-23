@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Romanos FC — Match Center da Série Prata 2026 Liga BC">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Romanos FC — Match Center · Série Prata 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cinzel:wght@700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Sidebar Nav -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="club-logo">
+          <div class="logo-shield">⚔</div>
+        </div>
+        <div class="club-info">
+          <span class="club-name">ROMANOS FC</span>
+          <span class="league-name">Série Prata</span>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#calendar" class="nav-item active" data-page="calendar">
+          <span class="nav-icon">📅</span>
+          <span>Calendário</span>
+        </a>
+        <a href="#lineup" class="nav-item" data-page="lineup">
+          <span class="nav-icon">🟢</span>
+          <span>Escalação</span>
+        </a>
+        <a href="#summary" class="nav-item" data-page="summary">
+          <span class="nav-icon">📋</span>
+          <span>Súmula</span>
+        </a>
+        <a href="#stats" class="nav-item" data-page="stats">
+          <span class="nav-icon">📊</span>
+          <span>Estatísticas</span>
+        </a>
+        <a href="#table" class="nav-item" data-page="table">
+          <span class="nav-icon">🏆</span>
+          <span>Tabela</span>
+        </a>
+        <a href="#h2h" class="nav-item" data-page="h2h">
+          <span class="nav-icon">⚔️</span>
+          <span>Confrontos</span>
+        </a>
+        <a href="#ranking" class="nav-item" data-page="ranking">
+          <span class="nav-icon">⭐</span>
+          <span>Ranking</span>
+        </a>
+        <a href="#squad" class="nav-item" data-page="squad">
+          <span class="nav-icon">👥</span>
+          <span>Elenco</span>
+        </a>
+      </nav>
+      <!-- Comissão técnica no rodapé da sidebar -->
+      <div id="staffFooter" style="padding:12px 16px;border-top:1px solid rgba(201,168,76,0.08);"></div>
+    </aside>
+
+    <!-- Mobile Top Bar -->
+    <header class="mobile-header">
+      <button class="menu-btn" id="menuBtn">☰</button>
+      <span class="mobile-title">ROMANOS FC</span>
+      <span class="mobile-league">Série Prata</span>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+      <div id="page-calendar" class="page active"></div>
+      <div id="page-lineup" class="page"></div>
+      <div id="page-summary" class="page"></div>
+      <div id="page-stats" class="page"></div>
+      <div id="page-table" class="page"></div>
+      <div id="page-h2h" class="page"></div>
+      <div id="page-ranking" class="page"></div>
+      <div id="page-squad" class="page"></div>
+    </main>
+  </div>
+
+  <script type="module" src="js/data.js"></script>
+  <script type="module" src="js/modules/calendar.js"></script>
+  <script type="module" src="js/modules/lineup.js"></script>
+  <script type="module" src="js/modules/summary.js"></script>
+  <script type="module" src="js/modules/stats.js"></script>
+  <script type="module" src="js/modules/table.js"></script>
+  <script type="module" src="js/modules/h2h.js"></script>
+  <script type="module" src="js/modules/ranking.js"></script>
+  <script type="module" src="js/modules/squad.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
