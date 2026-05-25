@@ -1,5 +1,5 @@
 // ===== APP ROUTER =====
-import { loadData, saveData } from './data.js';
+import { loadData, saveData, supabase } from './data.js';
 import { renderCalendar } from './modules/calendar.js';
 import { renderLineup }   from './modules/lineup.js';
 import { renderSummary }  from './modules/summary.js';
@@ -92,8 +92,45 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   window.addEventListener('hashchange', () => navigate(getHash()));
 
-  appData = await loadData();
+  // Setup App Data
+  async function initApp() {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    appData = await loadData();
+    renderStaffFooter();
+    navigate(getHash());
+  }
 
-  renderStaffFooter();
-  navigate(getHash());
+  // Auth Logic
+  const { data: { session } } = await supabase.auth.getSession();
+  if (session) {
+    initApp();
+  } else {
+    document.getElementById('loginScreen').style.display = 'flex';
+  }
+
+  const loginBtn = document.getElementById('loginBtn');
+  const emailInput = document.getElementById('loginEmail');
+  const passwordInput = document.getElementById('loginPassword');
+  const loginError = document.getElementById('loginError');
+
+  loginBtn.addEventListener('click', async () => {
+    loginBtn.textContent = 'Carregando...';
+    loginBtn.disabled = true;
+    loginError.style.display = 'none';
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email: emailInput.value.trim(),
+      password: passwordInput.value
+    });
+
+    if (error) {
+      loginError.textContent = 'E-mail ou senha incorretos.';
+      loginError.style.display = 'block';
+      loginBtn.textContent = 'ENTRAR';
+      loginBtn.disabled = false;
+    } else {
+      initApp();
+    }
+  });
 });

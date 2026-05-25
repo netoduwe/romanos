@@ -4,7 +4,7 @@
 
 const supabaseUrl = 'https://mdttowcgbicevqlcnhit.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1kdHRvd2NnYmljZXZxbGNuaGl0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk1NTI4MzksImV4cCI6MjA5NTEyODgzOX0.FOsUdHvbEMyXpfylziM8koxnTzj23FcKunVVz_fZ-nc';
-const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+export const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 const INITIAL_DATA = {
   // ===== COMISSÃO TÉCNICA =====
   staff: [
